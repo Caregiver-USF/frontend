@@ -1,20 +1,28 @@
-import { set_user_data } from './userTypes';
+import { set_user_data, set_user_id_token } from './userTypes';
 
 import produce from 'immer';
 
 
 const initial_user_data = {
-    firstname: "",
-    lastname: "",
-    email: ""
+    user: {
+        firstname: "",
+        lastname: "",
+        email: "",
+        gender: ""
+    },
+    idToken: ""
 }
 
 export const userReducers = produce((draft , action) => {
     switch(action.type) {
         case set_user_data:
-            draft.firstname = action.payload.firstname;
-            draft.lastname = action.payload.lastname;
-            draft.email = action.payload.email;
+            draft.user.firstname = action.payload.firstname;
+            draft.user.lastname = action.payload.lastname;
+            draft.user.email = action.payload.email;
+            draft.user.gender = action.payload.gender;
+            return draft
+        case set_user_id_token:
+            draft.idToken = action.payload;
             return draft
         default:
             return draft

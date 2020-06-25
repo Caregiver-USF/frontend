@@ -1,8 +1,15 @@
-import { set_user_data } from './userTypes';
+import { set_user_data , set_user_id_token} from './userTypes';
 
-export const setUserData = (data) => {
+export const setCaregiverUserData = (data) => {
     return {
         type: set_user_data,
+        payload: data
+    }
+}
+
+export const setUserIdToken = (data) => {
+    return {
+        type: set_user_id_token,
         payload: data
     }
 }
