@@ -1,4 +1,4 @@
-import { set_user_data , set_user_id_token} from './userTypes';
+import { set_user_data , set_user_id_token, clear_user} from './userTypes';
 
 export const setCaregiverUserData = (data) => {
     return {
@@ -11,5 +11,11 @@ export const setUserIdToken = (data) => {
     return {
         type: set_user_id_token,
         payload: data
+    }
+}
+
+export const clearUser = () => {
+    return {
+        type: clear_user
     }
 }
