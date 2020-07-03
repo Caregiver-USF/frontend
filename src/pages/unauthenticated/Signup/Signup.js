@@ -4,11 +4,8 @@ import  { Input } from '../../components/Inputs/Inputs';
 import "../../components/styles/Pagestyles.css";
 import Unauthpage from '../components/Unauthpage/Unauthpage';
 import { createNewUser } from '../../../redux/user-redux/operations/createUser';
-import { authService } from '../../../navigation/security/service/authService';
 import { Redirect } from 'react-router-dom';
-// import { store } from '../../../redux/store';
-// import { clearUser } from '../../../redux/user-redux/userActions';
-
+import { authService } from '../../../navigation/security/service/authService';
 const Signup = (props) => {
 
     useEffect(() => {
@@ -36,7 +33,8 @@ const Signup = (props) => {
         createNewUser(data)
         .then((res) => {
             if (res === true) {
-
+                authService.currentStatus = true;
+                setAuthenticated(true);
             }
         }).catch(err => {
             console.error(err);

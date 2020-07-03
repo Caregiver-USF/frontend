@@ -16,25 +16,28 @@ const PrivateRoute = (props) => {
 
     useEffect(() => {
       const { authenticated } = props;
+      if (authenticated === true) {
+        authService.currentStatus = true;
+        setAuthenticatedPage(true)
+      } else {
+        setAuthenticatedPage(false)
+      }
       setTimeout(() => {
-        if (authenticated === true) {
-          setAuthenticatedPage(true)
-        } else {
-          setAuthenticatedPage(false)
-        }
         setLoadingPage(false)
         setCompiledPage(true)
-      }, 500);
+      }, 1000);
 
-      authService.checkAuthStatus((status) => {
-        if (status === true) {
-          setAuthenticatedPage(true)
-        } else {
-          setAuthenticatedPage(false)
-        }
-      })
+      if (compiledPage === true) {
+        authService.checkAuthStatus((status) => {
+          if (status === true) {
+            setAuthenticatedPage(true)
+          } else {
+            setAuthenticatedPage(false)
+          }
+        })
+      }
 
-    }, [props])
+    }, [props , compiledPage])
 
     /*
     Make sure to user this method whenever we are ready to redirect users with a given authenticated url
@@ -85,10 +88,14 @@ const PrivateRoute = (props) => {
     */
 
     const Compilepage = ({refreshDone}) => {
-        if (authenticatedPage === true) {
-          return <Route path={path} component={component} exact />
+        if (refreshDone === true) {
+          if (authenticatedPage === true) {
+            return <Route path={path} component={component} exact />
+          } else {
+            return <Redirect to="/login" />
+          }
         } else {
-          return <Redirect to="/login" />
+          return null;
         }
     }
 
