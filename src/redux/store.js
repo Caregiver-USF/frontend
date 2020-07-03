@@ -5,8 +5,10 @@ import logger from 'redux-logger';
 import { persistStore , persistReducer  } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+//Different Keys in Loggers can cause projects to mash together study up later
+
 const persistConfig = {
-    key: 'root',
+    key: 'primary',
     storage,
     debug: process.env.NODE_ENV === 'development'
 }

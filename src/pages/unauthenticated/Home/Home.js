@@ -1,33 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { setUserData } from '../../../redux/user-redux/userActions';
+import './styles/Home.css';
+import Unauthnav from '../components/Unauthnav/Unauthnav';
 
 const Home = (props) => {
-
-    useEffect(() => {
-        const { firstname } = props;
-        console.log(firstname);
-    }, [props])
-
     return (
         <div>
-         <h1>Home</h1>
+         <Unauthnav/>
+         <div className="container">
+          <div className="home">
+           <h1>Caregiver</h1>
+          </div>
+         </div>
         </div>
     )
 }
 
-const mapStateToProps = ({
-  user: {
-      firstname
-  }
-}) => {
-   return {
-     firstname
-   }
-}
-
-const mapActionsToProps = {
-    setUserData
-}
-
-export default connect(mapStateToProps, mapActionsToProps)(Home);
+export default connect(null, null)(Home);
