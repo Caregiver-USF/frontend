@@ -7,7 +7,7 @@ const Authnav = (props) => {
     return(
         <div>
             <div className="auth-nav">
-                <div classname="container">
+                <div className="container">
                     <div className="row">
                         <div className="col-md-8">
                             <h5>Caregiver</h5>
