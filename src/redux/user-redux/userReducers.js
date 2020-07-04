@@ -1,4 +1,4 @@
-import { set_user_data, set_user_id_token, clear_user } from './userTypes';
+import { set_user_data, set_user_id_token, clear_user, set_authenticated } from './userTypes';
 
 import produce from 'immer';
 
@@ -37,6 +37,9 @@ export const userReducers = produce((draft , action) => {
                 authenticated: false
             }
 
+            return draft;
+        case set_authenticated:
+            draft.authenticated = action.payload;
             return draft;
         default:
             return draft
