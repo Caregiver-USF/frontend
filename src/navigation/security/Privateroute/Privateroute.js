@@ -26,17 +26,6 @@ const PrivateRoute = (props) => {
         setLoadingPage(false)
         setCompiledPage(true)
       }, 1000);
-
-      if (compiledPage === true) {
-        authService.checkAuthStatus((status) => {
-          if (status === true) {
-            setAuthenticatedPage(true)
-          } else {
-            setAuthenticatedPage(false)
-          }
-        })
-      }
-
     }, [props , compiledPage])
 
     /*
@@ -88,6 +77,15 @@ const PrivateRoute = (props) => {
     */
 
     const Compilepage = ({refreshDone}) => {
+
+      authService.checkAuthStatus((status) => {
+        if (status === true) {
+          return <Route path={path} component={component} exact />
+        } else {
+          return <Redirect to="/login" />
+        }
+      })
+
         if (refreshDone === true) {
           if (authenticatedPage === true) {
             return <Route path={path} component={component} exact />
