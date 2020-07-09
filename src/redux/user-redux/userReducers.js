@@ -36,7 +36,6 @@ export const userReducers = produce((draft , action) => {
                 idToken: "",
                 authenticated: false
             }
-
             return draft;
         case set_authenticated:
             draft.authenticated = action.payload;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import  { Input } from '../../components/Inputs/Inputs';
 import "../../components/styles/Pagestyles.css";
@@ -6,8 +6,13 @@ import Unauthpage from '../components/Unauthpage/Unauthpage';
 import { createNewUser } from '../../../redux/user-redux/operations/createUser';
 import { Redirect } from 'react-router-dom';
 import { authService } from '../../../navigation/security/service/authService';
+import { store } from '../../../redux/store';
+import { clearUser } from '../../../redux/user-redux/userActions';
 const Signup = (props) => {
 
+    useEffect(() => {
+        store.dispatch(clearUser())
+    }, [])
 
     const [firstName , setFirstName] = useState('');
     const [lastName , setLastName] = useState('');

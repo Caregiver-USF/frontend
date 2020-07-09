@@ -25,8 +25,9 @@ const PrivateRoute = (props) => {
       setTimeout(() => {
         setLoadingPage(false)
         setCompiledPage(true)
-      }, 1000);
-    }, [props , compiledPage])
+      }, 500);
+
+    }, [props])
 
     /*
     Make sure to user this method whenever we are ready to redirect users with a given authenticated url
@@ -76,9 +77,9 @@ const PrivateRoute = (props) => {
   }
     */
 
-    const Compilepage = ({refreshDone}) => {
-
-      authService.checkAuthStatus((status) => {
+    const Compilepage = ({refreshDone}) => { 
+        authService.checkAuthStatus((status) => {
+          console.log(status);
         if (status === true) {
           return <Route path={path} component={component} exact />
         } else {
