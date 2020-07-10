@@ -1,13 +1,12 @@
 import React from 'react';
 import Authpage from '../components/Authpage/Authpage';
 
-const Dashboard = () => {
-
-    return (
+const Modules = () => {
+    return(
         <Authpage>
-            <h1>Dashboard</h1>
+            <h1> Modules </h1>
         </Authpage>
     )
 }
 
-export default Dashboard;
+export default Modules;

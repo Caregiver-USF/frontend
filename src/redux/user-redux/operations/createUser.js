@@ -1,6 +1,6 @@
 import { testURL , testAPI } from '../../../network/axios';
 import { store } from '../../store';
-import { setCaregiverUserData , setUserIdToken } from '../userActions';
+import { setCaregiverUserData , setUserIdToken , setAuthenticated } from '../userActions';
 
 export const createNewUser = (data = {
     firstName: "",
@@ -16,8 +16,6 @@ export const createNewUser = (data = {
             password: data.password,
             returnSecureToken: true
         }
-
-        console.log(firebaseData);
 
         const dbData = {
             firstName: data.firstName,
@@ -37,7 +35,7 @@ export const createNewUser = (data = {
 
             const { idToken } = res.data;
             store.dispatch(setUserIdToken(idToken));
-
+            store.dispatch(setAuthenticated(true));
             createUserInDB(dbData)
             .then((response) => {
 
@@ -46,9 +44,6 @@ export const createNewUser = (data = {
             }).catch(error => {
                 console.error(error);
             })
-
-
-
         }).catch((error) => {
             reject(error);
         })

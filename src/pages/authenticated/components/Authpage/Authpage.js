@@ -1,11 +1,11 @@
 import React from 'react';
 import '../../../components/styles/Pagestyles.css';
-//Import Authnav Component then insert into code (Line 8)
+import Authnav from '../Authnav/Authnav';
 
 const Authpage = (props) => {
     return (
       <div>
-         
+         <Authnav/>
          <div className="page-define">
           <div className="container">
             {props.children}

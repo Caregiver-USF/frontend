@@ -5,40 +5,26 @@ import { authService } from '../service/authService';
 import LoadingScreen from '../../../pages/misc/LoadingScreen/LoadingScreen';
 
 const PrivateRoute = (props) => {
-
     const {
       path,
       component
     } = props
 
-    const [authenticatedPage , setAuthenticatedPage] = useState({
-      authenticatedpage: false
-    })
-    const [loadingPage , setLoadingPage] = useState({
-      loadingPage: true
-    })
-    const [compiledPage , setCompiledPage] = useState({
-      compiledPage: false
-    })
+    const [authenticatedPage , setAuthenticatedPage] = useState(false);
+    const [loadingPage , setLoadingPage] = useState(true);
+    const [compiledPage , setCompiledPage] = useState(false);
 
     useEffect(() => {
       const { authenticated } = props;
+      if (authenticated === true) {
+        authService.currentStatus = true;
+        setAuthenticatedPage(true)
+      } else {
+        setAuthenticatedPage(false)
+      }
       setTimeout(() => {
-        if (authenticated === true) {
-          setAuthenticatedPage({
-            authenticatedpage: true
-          })
-        } else {
-          setAuthenticatedPage({
-            authenticatedpage: false
-          })
-        }
-        setLoadingPage({
-          loadingPage: false
-        })
-        setCompiledPage({
-          compiledPage: true
-        })
+        setLoadingPage(false)
+        setCompiledPage(true)
       }, 500);
 
     }, [props])
@@ -91,9 +77,9 @@ const PrivateRoute = (props) => {
   }
     */
 
-    const Compilepage = ({refreshDone}) => {
-
-      authService.checkAuthStatus((status) => {
+    const Compilepage = ({refreshDone}) => { 
+        authService.checkAuthStatus((status) => {
+          console.log(status);
         if (status === true) {
           return <Route path={path} component={component} exact />
         } else {
@@ -101,21 +87,21 @@ const PrivateRoute = (props) => {
         }
       })
 
-       if (refreshDone === true) {
-        if (authenticatedPage.authenticatedpage === true) {
-          return <Route path={path} component={component} exact />
+        if (refreshDone === true) {
+          if (authenticatedPage === true) {
+            return <Route path={path} component={component} exact />
+          } else {
+            return <Redirect to="/login" />
+          }
         } else {
-          return <Redirect to="/login" />
+          return null;
         }
-       } else {
-         return null;
-       }
     }
 
     return (
       <div>
-        <LoadingScreen loading={loadingPage.loadingPage} />
-        <Compilepage refreshDone={compiledPage.compiledPage} />
+        <LoadingScreen loading={loadingPage} />
+        <Compilepage refreshDone={compiledPage} />
       </div>
     )
 
